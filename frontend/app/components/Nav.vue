@@ -30,6 +30,9 @@
   background-color: white;
 
   padding: 10px;
+
+  position: sticky;
+  top: 0;
 }
 
 .list {
