@@ -3,8 +3,16 @@
 
 :root {
   --ui-primary: #f00;
+  --ui-secondary: #ea2222;
+  --text-color: #000;
+
+  --background: #fff;
 }
 
 .dark {
   --ui-primary: #f00;
+  --ui-secondary: #ea2222;
+  --text-color: #fff;
+
+  --background: #000;
 }
