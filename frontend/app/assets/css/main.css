@@ -1,18 +1,46 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
 
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins/poppins.regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Important pour la performance */
+}
+
+@font-face {
+  font-family: 'krona-one';
+  src: url('../fonts/krona-one/KronaOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Important pour la performance */
+}
+
 :root {
+  /* Light theme */
   --ui-primary: #f00;
   --ui-secondary: #ea2222;
   --text-color: #000;
 
   --background: #fff;
+
+  /* Font */
+
+  --font-main: 'Poppins', sans-serif;
 }
 
 .dark {
+  /* Dark theme */
   --ui-primary: #f00;
   --ui-secondary: #ea2222;
   --text-color: #fff;
 
   --background: #000;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--text-color);
+  background-color: var(--background);
 }

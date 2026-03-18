@@ -8,26 +8,44 @@ function toggle_open() {
   isOpen.value = !isOpen.value
 }
 
+// In the loading of the page
+watch(
+  () => colorMode.value,
+  (newVal) => {
+    mode.value = newVal === 'dark'
+  },
+  { immediate: true }
+)
+
+// To update the color mode when the toggle switch is changed
 colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
 </script>
 
 <template>
   <div id="navbar-pc">
     <div class="navbar">
-      <div class="list">
-        <UButton size="md" color="primary" class="logo">Motocenter</UButton>
+      <div class="list-left">
+        <UButton size="md" color="primary" class="logo" to="/"
+          >Motocenter</UButton
+        >
         <ToggleSwitch v-model="mode" />
       </div>
-      <div class="list">
-        <UButton size="md" color="neutral" variant="ghost">Comparateur</UButton>
-        <UButton size="md" color="neutral" variant="ghost">Forum</UButton>
-        <UButton size="md" color="neutral" variant="ghost">Balades</UButton>
-        <UButton size="md" color="neutral" variant="ghost"
+      <div class="list-right">
+        <UButton size="md" color="neutral" variant="ghost" to="/"
+          >Comparateur</UButton
+        >
+        <UButton size="md" color="neutral" variant="ghost" to="/"
+          >Forum</UButton
+        >
+        <UButton size="md" color="neutral" variant="ghost" to="/"
+          >Balades</UButton
+        >
+        <UButton size="md" color="neutral" variant="ghost" to="/"
           >Nous connaitre</UButton
         >
         <UButton
           trailing-icon="i-lucide-arrow-right"
-          size="md"
+          size="xl"
           color="neutral"
           class="rounded-full"
           >Connexion</UButton
@@ -37,8 +55,10 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
   </div>
   <div id="navbar-mobile">
     <div class="navbar">
-      <div class="list">
-        <UButton size="md" color="primary" class="logo">Motocenter</UButton>
+      <div class="list-left">
+        <UButton size="md" color="primary" class="logo" to="/"
+          >Motocenter</UButton
+        >
         <ToggleSwitch v-model="mode" />
       </div>
       <UIcon
@@ -53,6 +73,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
         color="neutral"
         variant="ghost"
         style="justify-content: center"
+        to="/"
         >Comparateur</UButton
       >
       <UButton
@@ -60,6 +81,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
         color="neutral"
         variant="ghost"
         style="justify-content: center"
+        to="/"
         >Forum</UButton
       >
       <UButton
@@ -67,6 +89,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
         color="neutral"
         variant="ghost"
         style="justify-content: center"
+        to="/"
         >Balades</UButton
       >
       <UButton
@@ -74,6 +97,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
         color="neutral"
         variant="ghost"
         style="justify-content: center"
+        to="/"
         >Nous connaitre</UButton
       >
       <UButton
@@ -110,10 +134,25 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
 .logo {
   font-size: 1rem;
   font-weight: bold;
+  font-family: 'Krona-one';
 
   padding: 10px 25px;
 
   color: white;
+}
+
+.list-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.list-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
 }
 
 /** Style version PC */
@@ -121,13 +160,6 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
   #navbar-pc {
     display: none;
   }
-}
-
-.list {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 40px;
 }
 
 /** Style version mobile */
@@ -145,6 +177,6 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
 
   text-align: center;
 
-  background-color: white;
+  background-color: var(--background);
 }
 </style>

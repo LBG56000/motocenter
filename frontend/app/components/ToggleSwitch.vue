@@ -1,9 +1,12 @@
 <script setup>
 const mode = defineModel()
+const props = defineProps({
+  isPc: Boolean
+})
 </script>
 
 <template>
-  <label id="theme-toggle-button">
+  <label id="theme-toggle-button" class="theme-toggle-button">
     <input type="checkbox" id="toggle" v-model="mode" />
     <svg
       viewBox="0 0 69.667 44"
@@ -183,7 +186,6 @@ const mode = defineModel()
 <style scoped>
 /* The switch - the box around the slider */
 #theme-toggle-button {
-  font-size: 7px;
   position: relative;
 
   /* Ajoute ces lignes */
@@ -195,6 +197,17 @@ const mode = defineModel()
   cursor: pointer;
 }
 
+@media (min-width: 1024px) {
+  .theme-toggle-button {
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .theme-toggle-button {
+    font-size: 5px;
+  }
+}
 /* Hide default HTML checkbox */
 #toggle {
   opacity: 0;
