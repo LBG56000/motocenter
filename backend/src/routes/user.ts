@@ -24,8 +24,8 @@ router.get(
 
 router.get('/count', async (req: Request, res: Response) => {
   try {
-    const totalUsers = await User.countDocuments()
-    res.status(200).send(Number(totalUsers))
+    const totalUsers: number = await User.countDocuments()
+    res.status(200).json(totalUsers)
   } catch (error) {
     console.error('Error accessing user route:', error)
     res.status(500).json({ error: 'Internal server error' })
