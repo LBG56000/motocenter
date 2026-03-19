@@ -13,6 +13,11 @@ router.get(
         .select(project)
         .sort(sort)
         .limit(limit)
+      const users = await User.find()
+        .where(filter)
+        .select(project)
+        .sort(sort)
+        .limit(limit)
       res.status(200).json({ users })
     } catch (error) {
       console.error('Error accessing user route:', error)
