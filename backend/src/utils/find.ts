@@ -2,18 +2,21 @@
 export interface ReqQuery {
     project?: string
     sort?: number
-    size?: string
+    limit?: string
+    filter?: string
 }
 
-const defaultSize = 10
+const defaultLimit = 10
 const defaultSort = 'asc'
 const defaultProject = 'id'
+const defaultFilter = {}
 
 export function prepareQuery (query: ReqQuery) {
     const project = query.project ? query.project : defaultProject
-    const size = query.size ? Number(query.size) : defaultSize
+    const limit = query.limit ? Number(query.limit) : defaultLimit
+    const filter = query.filter ? JSON.parse(query.filter) : defaultFilter
     let sort = defaultSort
     if (query.sort && query.sort === -1) sort = 'desc'
 
-    return {project, sort, size}
+    return {project, sort, limit, filter}
 }

@@ -1,5 +1,6 @@
 <script setup>
 import ToggleSwitch from './ToggleSwitch.vue'
+import LogoApp from './LogoApp.vue'
 const isOpen = ref(false)
 const mode = ref(false)
 const colorMode = useColorMode()
@@ -25,9 +26,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
   <div id="navbar-pc">
     <div class="navbar">
       <div class="list-left">
-        <UButton size="md" color="primary" class="logo" to="/"
-          >Motocenter</UButton
-        >
+        <LogoApp />
         <ToggleSwitch v-model="mode" />
       </div>
       <div class="list-right">
@@ -56,9 +55,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
   <div id="navbar-mobile">
     <div class="navbar">
       <div class="list-left">
-        <UButton size="md" color="primary" class="logo" to="/"
-          >Motocenter</UButton
-        >
+        <LogoApp />
         <ToggleSwitch v-model="mode" />
       </div>
       <UIcon
