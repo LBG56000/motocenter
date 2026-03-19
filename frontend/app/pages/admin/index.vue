@@ -8,40 +8,25 @@ interface Stat {
   value: number
 }
 
-definePageMeta({
-  layout: 'admin'
-})
-
 const userName: string = 'Admin'
 const apiBack = useRuntimeConfig().public.apiback
 const stats = ref<Stat[]>([])
 
 async function fetchStats() {
-  try {
-    const totalUsers = await $fetch<number>(`${apiBack}users/count`)
-    const totalBikes = await $fetch<number>(`${apiBack}motorcycles/count`)
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-    const res = await $fetch<{ users: IUser[] }>(
-      `${apiBack}users?filter=${JSON.stringify({ createdAt: { $gte: today } })}`
-    )
-    const newUsers = res.users
-    stats.value.push({
-      title: 'Utilisateurs',
-      value: totalUsers ?? 0
-    })
-    stats.value.push({
-      title: 'Motos',
-      value: totalBikes ?? 0
-    })
-    stats.value.push({
-      title: "Nouveaux utilisateurs aujourd'hui",
-      value: newUsers.length ?? 0
-    })
-    console.log('Fetched stats:', stats.value)
-  } catch (error) {
-    console.log('Failed to fetch stats:', error)
-  }
+  const totalUsers = await $fetch<number>(`${apiBack}users/count`)
+  const newUsers = await $fetch<IUser[]>(
+    `${apiBack}users?filter=${JSON.stringify({ createdAt: { $gte: new Date(Date.now()) } })}`
+  )
+  /**
+   * const totalBikes = await $fetch<number>(`${apiBack}bikes/count`)
+   * stats.value.push({ title: 'Motos', value: totalBikes ?? 0 })
+   *
+   */
+  stats.value.push({ title: 'Utilisateurs', value: totalUsers ?? 0 })
+  stats.value.push({
+    title: "Nouveaux utilisateurs aujourd'hui",
+    value: newUsers.length ?? 0
+  })
 }
 
 onMounted(() => {
@@ -50,7 +35,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <NuxtLayout name="admin">
     <Header />
     <hr />
     <main>
@@ -64,7 +49,7 @@ onMounted(() => {
         />
       </div>
     </main>
-  </div>
+  </NuxtLayout>
 </template>
 
 <style scoped>
