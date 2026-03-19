@@ -34,9 +34,8 @@ async function fetchStats() {
       title: "Nouveaux utilisateurs aujourd'hui",
       value: newUsers.length ?? 0
     })
-    console.log('Fetched stats:', stats.value);
   } catch (error) {
-    console.log('Failed to fetch stats:', error)
+    console.error('Erreur lors de la récupération des statistiques :', error)
   }
 }
 
