@@ -126,9 +126,15 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
   background-color: var(--background);
 
   padding: 10px;
+}
 
-  position: sticky;
+#navbar-mobile,
+#navbar-pc {
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .logo {
