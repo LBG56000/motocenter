@@ -6,8 +6,10 @@ export interface ReqQuery {
 }
 
 const defaultLimit = 10
+const defaultLimit = 10
 const defaultSort = 'asc'
 const defaultProject = 'id'
+const defaultFilter = {}
 const defaultFilter = {}
 
 export function prepareQuery(query: ReqQuery) {

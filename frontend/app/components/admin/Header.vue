@@ -11,7 +11,7 @@ const appName: string = useRuntimeConfig().public.appName
 
 <style scoped>
 h1 {
-  font-family: 'krona-one';
+  font-family: var(--font-krona);
   color: var(--text-color);
   font-size: 50px;
 }
