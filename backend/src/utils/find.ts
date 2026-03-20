@@ -1,12 +1,14 @@
 export interface ReqQuery {
-  project?: string
-  sort?: number
-  size?: string
+    project?: string
+    sort?: number
+    limit?: string
+    filter?: string
 }
 
-const defaultSize = 10
+const defaultLimit = 10
 const defaultSort = 'asc'
 const defaultProject = 'id'
+const defaultFilter = {}
 
 export function prepareQuery(query: ReqQuery) {
   // Permet le requêtage de plusieurs colonnes (ex = /users?project=firstname,lastname)
@@ -25,9 +27,10 @@ export function prepareQuery(query: ReqQuery) {
     project = { [defaultProject]: 1 }
   }
 
-  const size = query.size ? Number(query.size) : defaultSize
+  const limit = query.limit ? Number(query.limit) : defaultLimit
+    const filter = query.filter ? JSON.parse(query.filter) : defaultFilter
   let sort = defaultSort
   if (query.sort && query.sort === -1) sort = 'desc'
 
-  return { project, sort, size }
+    return {project, sort, limit, filter}
 }

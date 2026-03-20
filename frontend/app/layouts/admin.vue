@@ -1,0 +1,52 @@
+<script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui'
+
+function getItems() {
+  return [
+    {
+      label: 'Accueil',
+      icon: 'i-lucide-house',
+    },
+    {
+      label: 'Motos',
+      icon: 'i-lucide-square-dot',
+    },
+    {
+      label: 'Statistiques',
+      icon: 'i-lucide-chart-pie',
+    }
+  ] satisfies NavigationMenuItem[]
+}
+</script>
+
+<template>
+  <div class="flex flex-1">
+    <UDashboardSidebar
+      :collapsible="true"
+      :ui="{
+        root: 'bg-[var(--ui-primary)]',
+        body: 'py-0'
+      }"
+    >
+      <template #header="{ collapsed }">
+        <LogoApp v-if="!collapsed" class="h-5 w-auto shrink-0" />
+      </template>
+
+      <template #default="{ collapsed }">
+        <UNavigationMenu
+          :key="String(collapsed)"
+          :items="getItems()"
+          orientation="vertical"
+          :ui="{
+            link: 'p-1.5 overflow-hidden text-white',
+            linkLeadingIcon: '!text-white'
+          }"
+        />
+      </template>
+    </UDashboardSidebar>
+
+    <div class="flex-1">
+      <slot />
+    </div>
+  </div>
+</template>

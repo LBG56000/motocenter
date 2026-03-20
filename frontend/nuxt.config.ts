@@ -5,11 +5,18 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: ''
+      apiback: 'http://localhost:5000/api/v1/',
+      appName: 'MotoCenter'
     }
   },
 
   modules: ['@nuxt/eslint', '@nuxt/ui'],
   css: ['~/assets/css/main.css'],
+  icon: {
+    provider: 'server',
+    serverBundle: {
+      collections: ['lucide']
+    }
+  },
   eslint: {}
 })
