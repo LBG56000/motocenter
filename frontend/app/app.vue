@@ -3,8 +3,9 @@
 
 <template>
   <UApp>
-    <Nav class="w-full left-0 right-0"></Nav>
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </UApp>
 </template>
 
