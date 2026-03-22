@@ -26,7 +26,8 @@ const seedPost = async () => {
       category: category1._id,
       user: user._id,
       brand: brand._id,
-      views: 12
+      views: 12,
+      image: 'https://resources.motogp.pulselive.com/photo-resources/2026/03/21/b8cc7d18-21ff-445e-a24a-b6db858e2795/LGZ_1910_.jpg?width=1580&height=889'
     },
     {
       id: 'p-002',
@@ -35,6 +36,7 @@ const seedPost = async () => {
       category: category2._id,
       user: user._id,
       brand: brand._id,
+      image: 'https://resources.motogp.pulselive.com/photo-resources/2026/03/21/b8cc7d18-21ff-445e-a24a-b6db858e2795/LGZ_1910_.jpg?width=1580&height=889'
     },
   ])
 }

@@ -29,16 +29,43 @@ router.get(
   },
 )
 
+router.get(
+  '/:id',
+  async (req: Request<{ id: string }, unknown, unknown, ReqQuery>, res) => {
+    try {
+      const { deep } = prepareQuery(req.query)
+      const { id } = req.params
+
+      const query = Post.findOne({ id })
+      if (deep && query) {
+        query
+          .populate('user')
+          .populate('brand')
+          .populate('category')
+      }
+      const post = await query
+      res.status(200).json({ post })
+    } catch (error) {
+      console.error('Error accessing message route:', error)
+      res.status(500).json({ error: 'Internal server error' })
+    }
+  },
+)
+
 router.get('/:id/responses', async (req, res) => {
   try {
     const post = await Post.findOne({ id: req.params.id })
     if (!post) {
       return res.status(404).json({ error: 'Post not found' })
     }
-    const messages = await Message.find({
+    const query = Message.find({
       reference: post._id,
       referenceModel: 'Post'
     })
+
+    query.populate('user')
+
+    const messages = await query
 
     res.json({ messages })
   } catch (error) {

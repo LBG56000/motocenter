@@ -9,5 +9,6 @@ export interface IPost {
     category: ICategory,
     user: IUser,
     brand: IBrand,
-    views: number
+    views: number,
+    image: string
 }

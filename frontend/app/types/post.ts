@@ -12,5 +12,6 @@ export interface IPost {
     brand: IBrand,
     createdAt: string,
     views: string,
-    responses: IMessage[]
+    responses: IMessage[],
+    image: string
 }
