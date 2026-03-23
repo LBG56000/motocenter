@@ -5,6 +5,8 @@ import type { ICategory } from '~/types/category'
 const categories = ref<ICategory[]>([])
 const brands = ref<IBrand[]>([])
 const onlyMyPosts = ref(true)
+const isVisibleModalAdded = ref(false)
+
 const handleHaveAllPosts = () => {
   navigateTo('/forum')
 }
@@ -42,6 +44,7 @@ onMounted(async () => {
 
 <template>
   <div class="filters">
+    <LazyForumModalAddPost />
     <UCard>
       <div class="icon-and-text filter cursor-pointer" @click="handleHaveAllPosts">
         <UIcon class="size-7 margin-0_5" name="i-lucide-messages-square" />

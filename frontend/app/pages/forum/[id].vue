@@ -28,10 +28,6 @@ const getResponsesOfPost = async () => {
   responses.value = data.messages
 }
 
-const handleReturnForumList = () => {
-  navigateTo('/forum')
-}
-
 onMounted(async () => {
   await Promise.all([
     getPost(),
@@ -43,7 +39,6 @@ onMounted(async () => {
 <template>
   <div class="post-filters">
     <div>
-      <UButton @click="handleReturnForumList">Retour à la liste</UButton>
       <ForumFilters />
     </div>
     <div>
@@ -64,7 +59,7 @@ onMounted(async () => {
         </div>
         <div class="flex row end margin-1_5">
           <p>Par {{ post?.user.firstname }}, {{ formatTimeAgo(post?.createdAt)
-            }}</p>
+          }}</p>
           <div class="icon-and-text">
             <UIcon class="size-7 margin-2" name="i-lucide-eye" />
             <p>{{ post?.views }} vues</p>
@@ -85,7 +80,7 @@ onMounted(async () => {
       <UButton class="margin-top-0_5" :disabled="newReponseOfPost === ''">Ecrire mon post</UButton>
       <p v-if="responses.length === 0">Aucune réponse à ce post, ajouter la première</p>
       <div v-else class="margin-bottom-1 w-5/6">
-        <ForumResponse :responses="responses" />
+        <LazyForumResponse :responses="responses" />
       </div>
     </div>
   </div>
