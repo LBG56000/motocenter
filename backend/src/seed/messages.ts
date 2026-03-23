@@ -26,6 +26,30 @@ const seedMessage = async () => {
       user: user1._id
     }
   ])
+
+  const message = await Message.findOne({ id: 'm-001' })
+  await Message.insertMany([
+    {
+      id: 'm-002',
+      content: 'Réponse au cout de l\'assurance',
+      like: 7,
+      dislike: 0,
+      isRep: true,
+      reference: [message?._id],
+      referenceModel: 'Message',
+      user: user1._id
+    },
+    {
+      id: 'm-003',
+      content: 'Deuxième Réponse au cout de l\'assurance',
+      like: 7,
+      dislike: 0,
+      isRep: true,
+      reference: [message?._id],
+      referenceModel: 'Message',
+      user: user1._id
+    }
+  ])
   console.log('Message seeding')
 
   const messages = await Message.find()
