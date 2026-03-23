@@ -6,7 +6,7 @@ const categories = ref<ICategory[]>([])
 const brands = ref<IBrand[]>([])
 const onlyMyPosts = ref(true)
 const handleHaveAllPosts = () => {
-  console.log('clic on all ')
+  navigateTo('/forum')
 }
 
 const getCategories = async () => {
