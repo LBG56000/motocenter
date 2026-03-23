@@ -1,10 +1,10 @@
 <script setup></script>
+<script setup></script>
 
 <template>
-  <UApp>
+  <NuxtLayout>
     <NuxtPage />
-    <Footer />
-  </UApp>
+  </NuxtLayout>
 </template>
 
 <style></style>
