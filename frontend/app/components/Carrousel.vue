@@ -1,4 +1,10 @@
-<script></script>
+<script setup lang="ts">
+import { IMotorcycle } from '~/types/motorcycle'
+
+const props = defineProps<{
+  items: IMotorcycle[]
+}>()
+</script>
 
 <template>
   <UCarousel
@@ -14,20 +20,20 @@
     }"
   >
     <article>
-      <h4>Model</h4>
+      <h4>{{ item.model }}</h4>
       <img
-        :src="item"
+        src="/_nuxt/assets/images/sponsors/2.png"
         width="320"
         height="320"
         class="rounded-lg"
         loading="lazy"
       />
       <div id="description">
-        <p>ch</p>
+        <p>{{ item.horsePower }} ch</p>
         <hr />
         <p>Nm</p>
         <hr />
-        <p>prix</p>
+        <p>{{ item.price }}€</p>
       </div>
       <div>
         <UButton

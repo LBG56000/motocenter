@@ -2,24 +2,28 @@
 import Sponsor from '@/components/Sponsor.vue'
 import type { IMotorcycle } from '~/types/motorcycle'
 
-const items = [
-  `/_nuxt/assets/images/sponsors/1.png`,
-  `/_nuxt/assets/images/sponsors/2.png`,
-  `/_nuxt/assets/images/sponsors/3.png`,
-  `/_nuxt/assets/images/sponsors/4.png`,
-  `/_nuxt/assets/images/sponsors/5.png`
-]
-
+const items = ref<IMotorcycle[]>([])
 const apiBack = useRuntimeConfig().public.apiback
 
-const { data, error } = await useFetch<{ motorcycles: IMotorcycle[] }>(
-  `${apiBack}motorcycles`
-)
+async function fetchMotocycles() {
+  const data = await $fetch<{ motorcycles: IMotorcycle[] }>(
+    `${apiBack}motorcycles`,
+    {
+      params: {
+        /*
+        filter: JSON.stringify({
+          id: { $in: [motorcycle1Id.value, motorcycle2Id.value] }
+        }),*/
+        project: 'model horsePower price'
+      }
+    }
+  )
 
-onMounted(() => {
-  if (data.value) {
-    console.log('Mes motos :', data.value)
-  }
+  items.value = data.motorcycles
+}
+
+onMounted(async () => {
+  await fetchMotocycles()
 })
 </script>
 <template>
@@ -146,6 +150,7 @@ onMounted(() => {
         color="neutral"
         class="rounded-full button"
         icon="i-lucide-badge-check"
+        style="margin-bottom: 20vh"
         >Approuvé par 100 utilisateurs</UButton
       >
     </section>

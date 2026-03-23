@@ -1,6 +1,5 @@
 import User from '../models/User'
 import { type Request, Response, Router } from 'express'
-import { type Request, Response, Router } from 'express'
 import { prepareQuery, type ReqQuery } from '../utils/find'
 
 const router = Router()
