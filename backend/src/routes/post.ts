@@ -8,9 +8,10 @@ const router = Router()
 router.get(
   '/',
   async (req: Request<unknown, unknown, unknown, ReqQuery>, res) => {
-    const { project, sort, deep, limit } = prepareQuery(req.query)
+    const { project, sort, deep, limit, filter } = prepareQuery(req.query)
     try {
       let query = Post.find()
+        .where(filter)
         .select(project)
         .sort(sort)
         .limit(limit)
@@ -22,29 +23,6 @@ router.get(
       }
       const posts: Array<IPost> = await query
       res.status(200).json({ posts })
-    } catch (error) {
-      console.error('Error accessing message route:', error)
-      res.status(500).json({ error: 'Internal server error' })
-    }
-  },
-)
-
-router.get(
-  '/:id',
-  async (req: Request<{ id: string }, unknown, unknown, ReqQuery>, res) => {
-    try {
-      const { deep } = prepareQuery(req.query)
-      const { id } = req.params
-
-      const query = Post.findOne({ id })
-      if (deep && query) {
-        query
-          .populate('user')
-          .populate('brand')
-          .populate('category')
-      }
-      const post = await query
-      res.status(200).json({ post })
     } catch (error) {
       console.error('Error accessing message route:', error)
       res.status(500).json({ error: 'Internal server error' })
