@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ForumPost from '~/components/forum/ForumPost.vue';
+import ForumMyFavoritesPost from '~/components/forum/ForumMyFavoritesPost.vue';
 import type { IPost } from '~/types/post';
 
 const posts = ref<IPost[]>([])
@@ -57,6 +57,10 @@ onMounted(async () => {
           <ForumPost :post="post" :is-user="isUserOfPost" class="cursor-pointer" @click="handleOpenAPost(post.id)" />
         </div>
       </div>
+      <div class="panel">
+        <ForumMyFavoritesPost class="my-favorites" />
+        <ForumMyPosts class="my-favorites" />
+      </div>
     </div>
   </div>
 </template>
@@ -70,10 +74,21 @@ onMounted(async () => {
   display: flex;
   flex-direction: row;
   align-items: start;
+  justify-content: space-between;
   margin: 5em;
 }
 
-.forum-filters>div>div {
+.forum-filters>div>div,
+.my-favorites {
   margin-top: 2em;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2em;
+  position: sticky;
+  top: 0;
+  right: 0;
 }
 </style>

@@ -30,7 +30,7 @@ const handleEditFilter = () => {
             <p>{{ props.post.responses.length || 0 }} réponses </p>
           </div>
           <p>Par {{ props.post.user.firstname }}, {{ formatTimeAgo(props.post.createdAt)
-          }}</p>
+            }}</p>
           <div class="icon-and-text right">
             <UIcon class="size-7 margin-2" name="i-lucide-eye" />
             <p>{{ props.post.views }} vues</p>
@@ -42,7 +42,7 @@ const handleEditFilter = () => {
 </template>
 <style scoped>
 .postCard {
-  width: 70vw;
+  width: 55vw;
   margin: 1em auto;
   padding: 1em;
 }
