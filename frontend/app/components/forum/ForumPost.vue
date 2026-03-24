@@ -19,15 +19,17 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <UCard class="postCard">
-    <UIcon v-if="props.isUser" class="size-6 edit-icon" name="i-lucide-square-pen" @click="handleEditFilter" />
-    <div class="card-forum" @click="handleOpenAPost(post.id)">
-      <UAvatar :src="`/_nuxt/assets/images/users/${props.post.user.image}`" size="3xl" loading="lazy"
-        class="margin-2" />
+  <UCard class="postCard" @click="handleOpenAPost(post.id)">
+    <div class="header">
+      <div class="icon-and-question">
+        <UAvatar :src="`/_nuxt/assets/images/users/${props.post.user.image}`" size="3xl" loading="lazy"
+          class="margin-2" />
+        <h4 class="margin-bottom-1_5">{{ props.post.question }}</h4>
+      </div>
+      <UIcon v-if="props.isUser" class="size-6" name="i-lucide-square-pen" @click.stop="handleEditFilter" />
+    </div>
+    <div class="card-forum">
       <div class="content">
-        <div class="container title">
-          <h4>{{ props.post.question }}</h4>
-        </div>
         <div class="grid margin-top-1_5">
           <div class="mark-and-category">
             <UBadge size="lg" class="margin-2">{{ props.post.brand.name }}</UBadge>
@@ -49,18 +51,27 @@ onMounted(async () => {
   </UCard>
 </template>
 <style scoped>
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.icon-and-question {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+}
+
+.icon-and-question h4 {
+  margin-top: 0;
+}
+
 .postCard {
   width: 55vw;
   margin: 1em auto;
   padding: 1em;
-  position: relative;
-}
-
-.edit-icon {
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  cursor: pointer;
 }
 
 .margin-2 {
@@ -114,5 +125,9 @@ onMounted(async () => {
 
 .margin-top-1_5 {
   margin-top: 1.5em;
+}
+
+.margin-bottom-1_5 {
+  margin-bottom: 0.5em;
 }
 </style>
