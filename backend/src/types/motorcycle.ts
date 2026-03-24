@@ -1,12 +1,14 @@
+import { IBrand } from './brand'
+
 export interface IMotorcycle {
   id: string
   model: string
-  brandId: string
+  brand: IBrand
   createdAt: string
   engine_size: number
   horsePower: number
   soundLink?: string
-  is_new?: boolean
+  is_public?: boolean
   time_0_100?: number
   time_100_200?: number
   time_200_300?: number

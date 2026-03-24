@@ -12,6 +12,7 @@ router.get(
         .select(project)
         .sort(sort)
         .limit(limit)
+        .populate('brand')
       res.status(200).json({ motorcycles })
     } catch (error) {
       console.error('Error accessing motorcycle route:', error)

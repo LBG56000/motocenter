@@ -1,15 +1,22 @@
 import Motorcycle from '../models/Motorcycle'
 import { connectToMongo } from '.'
+import Brand from '../models/Brand'
 
 const seedMotorcycles = async () => {
   console.log('Je passe dans le seed motorcycles')
   await connectToMongo()
   await Motorcycle.deleteMany({})
 
+  const brand = await Brand.findOne({ id: 'b-001' })
+
+  if (!brand) {
+    throw new Error('Brand not found for seeding motorcycles')
+  }
+
   await Motorcycle.insertMany([
     {
       id: 'm-001',
-      brandId: 1,
+      brand: brand._id,
       engine_size: 599,
       model: 'CBR600RR',
       horsePower: 121,
@@ -17,12 +24,12 @@ const seedMotorcycles = async () => {
       price: 12000,
       numberOfComparison: 3,
       withAllFiled: false,
-      is_new: false,
+      is_public: false,
       speedMax: 257,
     },
     {
       id: 'm-002',
-      brandId: 2,
+      brand: brand._id,
       engine_size: 636,
       model: 'Ninja ZX-6R',
       horsePower: 130,
@@ -30,12 +37,12 @@ const seedMotorcycles = async () => {
       price: 11500,
       numberOfComparison: 5,
       withAllFiled: false,
-      is_new: false,
+      is_public: false,
       speedMax: 262,
     },
     {
       id: 'm-003',
-      brandId: 3,
+      brand: brand._id,
       engine_size: 599,
       model: 'GSX-R600',
       horsePower: 125,
@@ -43,12 +50,12 @@ const seedMotorcycles = async () => {
       price: 11000,
       numberOfComparison: 2,
       withAllFiled: false,
-      is_new: false,
+      is_public: false,
       speedMax: 250,
     },
     {
       id: 'm-004',
-      brandId: 4,
+      brand: brand._id,
       engine_size: 599,
       model: 'YZF-R6',
       horsePower: 118,
@@ -56,12 +63,12 @@ const seedMotorcycles = async () => {
       price: 11800,
       numberOfComparison: 4,
       withAllFiled: false,
-      is_new: false,
+      is_public: false,
       speedMax: 257,
     },
     {
       id: 'm-005',
-      brandId: 5,
+      brand: brand._id,
       engine_size: 955,
       model: 'Panigale V2',
       horsePower: 155,
@@ -69,7 +76,7 @@ const seedMotorcycles = async () => {
       price: 17990,
       numberOfComparison: 8,
       withAllFiled: true,
-      is_new: true,
+      is_public: true,
       soundLink: 'https://example.com/sounds/panigale-v2.mp3',
       time_0_100: 3.3,
       time_100_200: 6.1,
@@ -78,7 +85,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-006',
-      brandId: 6,
+      brand: brand._id,
       engine_size: 999,
       model: 'S1000RR',
       horsePower: 210,
@@ -86,13 +93,13 @@ const seedMotorcycles = async () => {
       price: 21990,
       numberOfComparison: 12,
       withAllFiled: false,
-      is_new: true,
+      is_public: true,
       time_0_100: 3.1,
       speedMax: 303,
     },
     {
       id: 'm-007',
-      brandId: 7,
+      brand: brand._id,
       engine_size: 998,
       model: 'CBR1000RR-R Fireblade',
       horsePower: 217,
@@ -100,13 +107,13 @@ const seedMotorcycles = async () => {
       price: 24599,
       numberOfComparison: 10,
       withAllFiled: false,
-      is_new: true,
+      is_public: true,
       time_0_100: 3.2,
       speedMax: 299,
     },
     {
       id: 'm-008',
-      brandId: 8,
+      brand: brand._id,
       engine_size: 998,
       model: 'YZF-R1',
       horsePower: 200,
@@ -114,13 +121,13 @@ const seedMotorcycles = async () => {
       price: 19999,
       numberOfComparison: 9,
       withAllFiled: false,
-      is_new: true,
+      is_public: true,
       time_0_100: 3.0,
       speedMax: 299,
     },
     {
       id: 'm-009',
-      brandId: 9,
+      brand: brand._id,
       engine_size: 1099,
       model: 'Streetfighter V4',
       horsePower: 208,
@@ -128,12 +135,12 @@ const seedMotorcycles = async () => {
       price: 23990,
       numberOfComparison: 6,
       withAllFiled: false,
-      is_new: true,
+      is_public: true,
       speedMax: 290,
     },
     {
       id: 'm-010',
-      brandId: 10,
+      brand: brand._id,
       engine_size: 1043,
       model: 'Z H2',
       horsePower: 200,
@@ -141,7 +148,7 @@ const seedMotorcycles = async () => {
       price: 18500,
       numberOfComparison: 7,
       withAllFiled: false,
-      is_new: true,
+      is_public: true,
       time_0_100: 3.4,
       speedMax: 280,
     },

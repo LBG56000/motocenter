@@ -1,5 +1,5 @@
 import type { IMotorcycle } from '../types/motorcycle'
-import { Schema, model } from 'mongoose'
+import { Schema, Types, model } from 'mongoose'
 
 const motorcycleSchema = new Schema({
   id: {
@@ -7,9 +7,10 @@ const motorcycleSchema = new Schema({
     required: true,
     unique: true,
   },
-  brandId: {
-    type: Number,
-    require: true,
+  brand: {
+    type: Types.ObjectId,
+    ref: 'Brand',
+    required: true,
   },
   engine_size: {
     type: Number,
@@ -26,7 +27,7 @@ const motorcycleSchema = new Schema({
   soundLink: {
     type: String,
   },
-  is_new: {
+  is_public: {
     type: Boolean,
   },
   time_0_100: {
