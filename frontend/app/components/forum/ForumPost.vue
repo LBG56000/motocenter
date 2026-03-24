@@ -9,25 +9,33 @@ const props = defineProps<{
 const handleEditFilter = () => {
   console.log('Edit post')
 }
+
+const handleOpenAPost = (id: string) => {
+  navigateTo(`/forum/${id}`)
+}
+
+onMounted(async () => {
+  await props.post
+})
 </script>
 <template>
   <UCard class="postCard">
-    <div class="card-forum">
+    <UIcon v-if="props.isUser" class="size-6 edit-icon" name="i-lucide-square-pen" @click="handleEditFilter" />
+    <div class="card-forum" @click="handleOpenAPost(post.id)">
       <UAvatar :src="`/_nuxt/assets/images/users/${props.post.user.image}`" size="3xl" loading="lazy"
         class="margin-2" />
       <div class="content">
         <div class="container title">
           <h4>{{ props.post.question }}</h4>
-          <UIcon v-if="props.isUser" class="size-6" name="i-lucide-square-pen" @click="handleEditFilter" />
         </div>
-        <div class="grid">
+        <div class="grid margin-top-1_5">
           <div class="mark-and-category">
             <UBadge size="lg" class="margin-2">{{ props.post.brand.name }}</UBadge>
             <UBadge size="lg">{{ props.post.category.name }}</UBadge>
           </div>
           <div class="icon-and-text right">
             <UIcon class="size-7 margin-2" name="i-lucide-messages-square" />
-            <p>{{ props.post.responses.length || 0 }} réponses </p>
+            <p>{{ props.post.responses.length || 0 }} réponses</p>
           </div>
           <p>Par {{ props.post.user.firstname }}, {{ formatTimeAgo(props.post.createdAt)
             }}</p>
@@ -45,6 +53,14 @@ const handleEditFilter = () => {
   width: 55vw;
   margin: 1em auto;
   padding: 1em;
+  position: relative;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  cursor: pointer;
 }
 
 .margin-2 {
@@ -66,7 +82,7 @@ const handleEditFilter = () => {
 .card-forum {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .img {
@@ -94,5 +110,9 @@ const handleEditFilter = () => {
 
 .content {
   width: 100%;
+}
+
+.margin-top-1_5 {
+  margin-top: 1.5em;
 }
 </style>

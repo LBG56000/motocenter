@@ -35,10 +35,6 @@ const isUserOfPost = computed(() => {
   return true
 })
 
-const handleOpenAPost = (id: string) => {
-  navigateTo(`/forum/${id}`)
-}
-
 onMounted(async () => {
   await Promise.all([
     getPosts()
@@ -54,7 +50,7 @@ onMounted(async () => {
       <ForumFilters />
       <div>
         <div v-for="post in posts" :key="post.id">
-          <ForumPost :post="post" :is-user="isUserOfPost" class="cursor-pointer" @click="handleOpenAPost(post.id)" />
+          <ForumPost :post="post" :is-user="isUserOfPost" class="cursor-pointer" />
         </div>
       </div>
       <div class="panel">
