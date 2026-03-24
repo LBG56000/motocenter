@@ -3,10 +3,11 @@ import type { IPost } from '~/types/post';
 
 const props = defineProps<{
   post: IPost,
-  isUser: boolean
+  isUser: boolean,
+  loading: boolean
 }>()
 
-const handleEditFilter = () => {
+const handleEditAPost = () => {
   console.log('Edit post')
 }
 
@@ -19,31 +20,36 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <UCard class="postCard" @click="handleOpenAPost(post.id)">
-    <div class="header">
-      <div class="icon-and-question">
-        <UAvatar :src="`/_nuxt/assets/images/users/${props.post.user.image}`" size="3xl" loading="lazy"
-          class="margin-2" />
-        <h4 class="margin-bottom-1_5">{{ props.post.question }}</h4>
-      </div>
-      <UIcon v-if="props.isUser" class="size-6" name="i-lucide-square-pen" @click.stop="handleEditFilter" />
-    </div>
-    <div class="card-forum">
-      <div class="content">
-        <div class="grid margin-top-1_5">
-          <div class="mark-and-category">
-            <UBadge size="lg" class="margin-2">{{ props.post.brand.name }}</UBadge>
-            <UBadge size="lg">{{ props.post.category.name }}</UBadge>
+  <UCard class="card-forum" @click="handleOpenAPost(post.id)">
+    <div class="postCard">
+      <USkeleton v-if="props.loading" class="size-12 rounded-full" />
+      <UAvatar v-else :src="`/_nuxt/assets/images/users/${props.post.user.image}`" size="3xl" loading="lazy"
+        class="margin-2" />
+      <div class="main">
+        <div class="top">
+          <h3>{{ props.post.question }}</h3>
+          <!--TODO: à compléter pour la gestion utilisateur-->
+          <UIcon v-if="props.isUser" class="size-6" name="i-lucide-square-pen" @click.stop="handleEditAPost" />
+        </div>
+        <div class="grid">
+          <div>
+            <div class="badges">
+              <UBadge size="lg" class="margin-2">{{ props.post.brand.name }}</UBadge>
+              <UBadge size="lg">{{ props.post.category.name }}</UBadge>
+            </div>
+
+            <p>Par {{ props.post.user.firstname }}, {{ formatTimeAgo(props.post.createdAt)
+              }}</p>
           </div>
-          <div class="icon-and-text right">
-            <UIcon class="size-7 margin-2" name="i-lucide-messages-square" />
-            <p>{{ props.post.responses.length || 0 }} réponses</p>
-          </div>
-          <p>Par {{ props.post.user.firstname }}, {{ formatTimeAgo(props.post.createdAt)
-            }}</p>
-          <div class="icon-and-text right">
-            <UIcon class="size-7 margin-2" name="i-lucide-eye" />
-            <p>{{ props.post.views }} vues</p>
+          <div class="statsContainer">
+            <div class="stats">
+              <UIcon class="size-7 margin-2" name="i-lucide-messages-square" />
+              <p>{{ props.post.responses.length || 0 }} réponses</p>
+            </div>
+            <div class="stats">
+              <UIcon class="size-7 margin-2" name="i-lucide-eye" />
+              <p>{{ props.post.views }} vues</p>
+            </div>
           </div>
         </div>
       </div>
@@ -51,83 +57,59 @@ onMounted(async () => {
   </UCard>
 </template>
 <style scoped>
-.header {
+.main {
+  flex: 1;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
 }
 
-.icon-and-question {
+.statsContainer {
   display: flex;
-  align-items: flex-start;
-  gap: 0.5em;
-}
-
-.icon-and-question h4 {
-  margin-top: 0;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .postCard {
   width: 55vw;
   margin: 1em auto;
   padding: 1em;
-}
-
-.margin-2 {
-  margin-right: 0.5em;
-}
-
-.icon-and-text {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.card-forum {
-  display: flex;
-  flex-direction: row;
+  gap: 1em;
   align-items: flex-start;
 }
 
-.img {
-  border-radius: 10em;
-  margin-right: 0.5em;
-}
-
-.title {
-  align-items: center;
-}
-
-.title>h4 {
-  margin-right: 2em;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 0.5em;
-}
-
-.right {
-  justify-self: end;
-}
-
-.content {
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
   width: 100%;
 }
 
-.margin-top-1_5 {
-  margin-top: 1.5em;
+.badges {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
-.margin-bottom-1_5 {
-  margin-bottom: 0.5em;
+.stats:nth-child(2) {
+  margin-bottom: 0;
+}
+
+.stats {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 0.5em;
+  width: 100%;
 }
 </style>

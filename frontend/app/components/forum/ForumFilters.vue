@@ -5,6 +5,9 @@ import type { ICategory } from '~/types/category'
 const categories = ref<ICategory[]>([])
 const brands = ref<IBrand[]>([])
 const onlyMyPosts = ref(true)
+const props = defineProps({
+  loading: Boolean
+})
 
 const handleHaveAllPosts = () => {
   navigateTo('/forum')
@@ -61,7 +64,8 @@ onMounted(async () => {
           <p>Catégories</p>
         </div>
         <div class="filter">
-          <div v-for="category in categories" :key="category.id" class="icon-and-text sub-filter cursor-pointer"
+          <USkeleton v-if="props.loading" class="size-12 rounded-full" />
+          <div v-else v-for="category in categories" :key="category.id" class="icon-and-text sub-filter cursor-pointer"
             @click="handlClickOnCategory(category.id)">
             <UIcon class="size-7 margin-0_5" :name="'i-lucide-' + category.icon" />
             <p>{{ category.name }}</p>
@@ -74,7 +78,8 @@ onMounted(async () => {
           <p>Marques</p>
         </div>
         <div class="filter">
-          <div v-for="brand in brands" :key="brand.id" class="icon-and-text sub-filter cursor-pointer"
+          <USkeleton v-if="props.loading" class="size-12 rounded-full" />
+          <div v-else v-for="brand in brands" :key="brand.id" class="icon-and-text sub-filter cursor-pointer"
             @click="handlClickBrand(brand.id)">
             <img :src="brand.icon" :alt="brand.name" :title="brand.name" width="40" height="40" class="margin-0_5">
             <p>{{ brand.name }}</p>

@@ -45,12 +45,11 @@ onMounted(async () => {
 
 <template>
   <div>
-    <USkeleton v-if="loading" class="size-12 rounded-full" />
-    <div v-else class="forum-filters">
-      <ForumFilters />
+    <div class="forum-filters">
+      <ForumFilters :loading />
       <div>
         <div v-for="post in posts" :key="post.id">
-          <ForumPost :post="post" :is-user="isUserOfPost" class="cursor-pointer" />
+          <ForumPost :post="post" :is-user="isUserOfPost" class="cursor-pointer" :loading />
         </div>
       </div>
       <div class="panel">
@@ -62,6 +61,14 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+  gap: 1em;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
