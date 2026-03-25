@@ -31,6 +31,11 @@ const seedBrand = async () => {
       name: 'BMW',
       icon: 'https://www.super-fabrique.fr/2174-large_default/sticker-bmw-retro-eclairant.jpg'
     },
+    {
+      id: 'b-006',
+      name: 'Ducati',
+      icon: 'https://upload.wikimedia.org/wikipedia/fr/a/ae/Ducati_logo.png'
+    }
   ])
   console.log('Brand seeding')
 
