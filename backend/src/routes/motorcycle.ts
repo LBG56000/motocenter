@@ -21,6 +21,17 @@ router.get(
   },
 )
 
+router.post('/', async (req: Request, res: Response) => {
+  try {
+    const newMotorcycle = new Motorcycle(req.body)
+    const savedMotorcycle = await newMotorcycle.save()
+    res.status(201).json(savedMotorcycle)
+  } catch (error) {
+    console.error('Error creating motorcycle:', error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 router.get('/count', async (req: Request, res: Response) => {
   try {
     const totalMotorcycles: number = await Motorcycle.countDocuments()

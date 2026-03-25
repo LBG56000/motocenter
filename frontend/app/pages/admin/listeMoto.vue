@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Header from '~/components/admin/Header.vue'
 import { h, resolveComponent } from 'vue'
-import type { TableColumn } from '@nuxt/ui'
-import { IMotorcycle } from '~/types/motorcycle.interface'
+import CardMoto from './CardMoto.vue'
+import type { IMotorcycle } from '~/types/motorcycle'
 
 definePageMeta({
   layout: 'admin'
@@ -11,7 +11,6 @@ definePageMeta({
 const UBadge = resolveComponent('UBadge')
 const apiBack = useRuntimeConfig().public.apiback
 const motos = ref<IMotorcycle[]>([])
-const showCardMoto = ref(false)
 
 const columns = [
   { accessorKey: 'brand', header: 'Marque' },
@@ -35,7 +34,7 @@ const columns = [
   },
   {
     accessorKey: 'is_public',
-    header: 'Statut',
+    header: 'Publiée',
     cell: ({ row }) => {
       const value = row.getValue('is_public') as boolean
       const label = value ? 'Oui' : 'Non'
@@ -48,13 +47,20 @@ const columns = [
 async function fetchData() {
   try {
     const data = await $fetch<{ motorcycles: IMotorcycle[] }>(
-      `${apiBack}motorcycles?project=model,year,is_public,withAllFiled`
+      `${apiBack}motorcycles`,
+      {
+        //http://localhost:5000/api/v1/motorcycles?project=model,year,is_new,withAllField
+        params: {
+          project: 'model,year,is_new,withAllField',
+          limit: 10000
+        }
+      }
     )
 
     if (data?.motorcycles) {
       motos.value = data.motorcycles.map((moto) => ({
         id: moto.id,
-        brand: moto.brand?.marque || '',
+        brand: moto.brand?.name || '',
         model: moto.model || '',
         year: moto.year || '',
         is_public: moto.is_public,
@@ -69,6 +75,23 @@ async function fetchData() {
 onMounted(() => {
   fetchData()
 })
+const panelOpen = ref(false)
+
+function closePanel() {
+  panelOpen.value = false
+}
+
+const refreshing = ref(false)
+
+async function refreshAll() {
+  refreshing.value = true
+  try {
+    await refreshNuxtData()
+  } finally {
+    refreshing.value = false
+  }
+  console.log('Refresh ')
+}
 </script>
 
 <template>
@@ -83,12 +106,20 @@ onMounted(() => {
           size="md"
           variant="outline"
           placeholder="Rechercher une moto..."
-          @click="showCardMoto = true"
         />
+        <USlideover v-model:open="panelOpen" title="Ajout d'une moto">
+          <UButton size="md" color="primary" label="Open"
+            >Ajouter une moto</UButton
+          >
+          <UButton :disabled="refreshing" @click="refreshAll">
+            Refetch All Data
+          </UButton>
 
-        <UButton size="md" color="primary">Ajouter une moto</UButton>
+          <template #body>
+            <CardMoto :mode="'create'" :onClosePanel="closePanel" />
+          </template>
+        </USlideover>
       </div>
-      <CardMoto v-if="showCardMoto" />
 
       <div class="main-content">
         <h3>Liste des motos</h3>

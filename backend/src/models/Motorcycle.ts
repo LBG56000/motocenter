@@ -18,7 +18,7 @@ const motorcycleSchema = new Schema({
   },
   model: {
     type: String,
-    require: true,
+    required: true,
   },
   horsePower: {
     type: Number,
@@ -52,11 +52,10 @@ const motorcycleSchema = new Schema({
   },
   year: {
     type: Number,
-    require: true,
+    required: true,
   },
   price: {
     type: Number,
-    require: true,
   },
   createdAt: {
     type: Date,
