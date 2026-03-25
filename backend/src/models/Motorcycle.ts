@@ -1,5 +1,15 @@
 import type { IMotorcycle } from '../types/motorcycle'
-import { Schema, model } from 'mongoose'
+import { Schema, Types, model } from 'mongoose'
+
+export enum MotorcycleCategory {
+  SPORTSBIKE = 'sportsbike',
+  ROADSTER = 'roadster',
+  ADVENTURE = 'adventure',
+  CUSTOM = 'custom',
+  TOURING = 'touring',
+  SPORT_TOURING = 'sport-touring',
+  SUPERMOTARD = 'supermotard',
+}
 
 const motorcycleSchema = new Schema({
   id: {
@@ -7,36 +17,60 @@ const motorcycleSchema = new Schema({
     required: true,
     unique: true,
   },
-  brandId: {
+  brand: {
+    type: Types.ObjectId,
+    ref: 'Brand',
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  year: {
     type: Number,
-    require: true,
+    required: true,
+  },
+  category: {
+    type: String,
+    enum: Object.values(MotorcycleCategory),
+    required: true,
   },
   engine_size: {
     type: Number,
     required: true,
   },
-  model: {
-    type: String,
-    require: true,
-  },
   horsePower: {
+    type: Number,
+    required: true,
+  },
+  torque: {
+    type: Number,
+    required: true,
+  },
+  weight: {
+    type: Number,
+    required: true,
+  },
+  consumption: {
     type: Number,
     required: true,
   },
   soundLink: {
     type: String,
   },
-  is_new: {
+  imageUrl: {
+    type: String,
+  },
+  isAvailableA2: {
     type: Boolean,
   },
-  time_0_100: {
-    type: Number,
+  is_public: {
+    type: Boolean,
   },
-  time_100_200: {
-    type: Number,
-  },
-  time_200_300: {
-    type: Number,
+  acceleration: {
+    time_0_100: { type: Number },
+    time_100_200: { type: Number },
+    time_200_300: { type: Number },
   },
   speedMax: {
     type: Number,
@@ -49,13 +83,9 @@ const motorcycleSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  year: {
-    type: Number,
-    require: true,
-  },
   price: {
     type: Number,
-    require: true,
+    required: true,
   },
   createdAt: {
     type: Date,

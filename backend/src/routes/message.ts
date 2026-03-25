@@ -6,9 +6,9 @@ const router = Router()
 router.get(
   '/',
   async (req: Request<unknown, unknown, unknown, ReqQuery>, res) => {
-    const { project, sort, limit } = prepareQuery(req.query)
+    const { project, sort, limit, filter } = prepareQuery(req.query)
     try {
-      const messages = await Message.find()
+      const messages = await Message.find(filter)
         .select(project)
         .sort(sort)
         .limit(limit)
@@ -19,5 +19,27 @@ router.get(
     }
   },
 )
+
+router.get('/:id/responses', async (req, res) => {
+  try {
+    const message = await Message.findOne({ id: req.params.id })
+    if (!message) {
+      return res.status(404).json({ error: 'Message not found' })
+    }
+    const query = Message.find({
+      reference: message._id,
+      referenceModel: 'Message'
+    })
+
+    query.populate('user')
+
+    const messages = await query
+
+    res.json({ messages })
+  } catch (error) {
+    console.error('Error accessing message route:', error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
 
 export default router

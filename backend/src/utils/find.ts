@@ -1,8 +1,9 @@
 export interface ReqQuery {
-    project?: string
-    sort?: number
-    limit?: string
-    filter?: string
+  project?: string
+  sort?: number
+  limit?: string
+  filter?: string
+  deep?: string
 }
 
 const defaultLimit = 10
@@ -13,10 +14,12 @@ const defaultFilter = {}
 export function prepareQuery(query: ReqQuery) {
   // Permet le requêtage de plusieurs colonnes (ex = /users?project=firstname,lastname)
   let project: Record<string, number>
-  if (query.project) {
-    const fields = query.project.split(',')
 
-    project = fields.reduce(
+  // Si project=all, on sélectionne tous les champs
+  if (query.project === 'all') {
+    project = {}
+  } else if (query.project) {
+    project = query.project.split(',').reduce(
       (acc, field) => {
         acc[field.trim()] = 1
         return acc
@@ -28,9 +31,11 @@ export function prepareQuery(query: ReqQuery) {
   }
 
   const limit = query.limit ? Number(query.limit) : defaultLimit
-    const filter = query.filter ? JSON.parse(query.filter) : defaultFilter
+  const filter = query.filter ? JSON.parse(query.filter) : defaultFilter
   let sort = defaultSort
   if (query.sort && query.sort === -1) sort = 'desc'
 
-    return {project, sort, limit, filter}
+  const deep = query.deep ? true : false
+
+  return { project, sort, limit, filter, deep }
 }

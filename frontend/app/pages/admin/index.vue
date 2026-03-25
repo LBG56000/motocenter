@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IUser } from '~/types/users'
+import type { IUser } from '@/types/users'
 import CardStats from '~/components/admin/CardStats.vue'
 import Header from '~/components/admin/Header.vue'
 
@@ -13,17 +13,17 @@ definePageMeta({
 })
 
 const userName: string = 'Admin'
-const apiBack = useRuntimeConfig().public.apiback
+const apiBase = useRuntimeConfig().public.apiBase
 const stats = ref<Stat[]>([])
 
 async function fetchStats() {
   try {
-    const totalUsers = await $fetch<number>(`${apiBack}users/count`)
-    const totalBikes = await $fetch<number>(`${apiBack}motorcycles/count`)
+    const totalUsers = await $fetch<number>(`${apiBase}users/count`)
+    const totalBikes = await $fetch<number>(`${apiBase}motorcycles/count`)
     const today = new Date()
     today.setHours(0, 0, 0, 0)
     const res = await $fetch<{ users: IUser[] }>(
-      `${apiBack}users?filter=${JSON.stringify({ createdAt: { $gte: today } })}`
+      `${apiBase}users?filter=${JSON.stringify({ createdAt: { $gte: today } })}`
     )
     const newUsers = res.users
     stats.value.push({

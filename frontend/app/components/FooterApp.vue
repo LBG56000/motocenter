@@ -2,8 +2,8 @@
 const guides = [
   { label: 'Accueil', to: '/' },
   { label: 'Comparateur' },
-  { label: 'Forum' },
-  { label: 'Balades' },
+  { label: 'Forum', to: '/forum' },
+  { label: 'Balades', to: '/ride' },
   { label: 'Nous connaitre', to: '/knowUs' }
 ]
 
@@ -177,6 +177,7 @@ const contacts = [
   font-size: 15px;
   font-weight: 300;
 }
+
 .p-mini {
   font-family: 'Poppins', sans-serif;
   font-size: 15px;
@@ -216,6 +217,7 @@ hr {
   .span-rs {
     display: none;
   }
+
   .footer div:nth-child(2) .list {
     display: flex;
     justify-content: center;

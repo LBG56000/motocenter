@@ -6,12 +6,13 @@ const router = Router()
 router.get(
   '/',
   async (req: Request<unknown, unknown, unknown, ReqQuery>, res: Response) => {
-    const { project, sort, limit } = prepareQuery(req.query)
+    const { project, sort, limit, filter } = prepareQuery(req.query)
     try {
-      const motorcycles = await Motorcycle.find()
+      const motorcycles = await Motorcycle.find(filter)
         .select(project)
         .sort(sort)
         .limit(limit)
+        .populate('brand')
       res.status(200).json({ motorcycles })
     } catch (error) {
       console.error('Error accessing motorcycle route:', error)
@@ -19,6 +20,17 @@ router.get(
     }
   },
 )
+
+router.post('/', async (req: Request, res: Response) => {
+  try {
+    const newMotorcycle = new Motorcycle(req.body)
+    const savedMotorcycle = await newMotorcycle.save()
+    res.status(201).json(savedMotorcycle)
+  } catch (error) {
+    console.error('Error creating motorcycle:', error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
 
 router.get('/count', async (req: Request, res: Response) => {
   try {

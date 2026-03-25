@@ -2,6 +2,7 @@
 import ConnexionForm from './ConnexionForm.vue'
 import ToggleSwitch from './ToggleSwitch.vue'
 import LogoApp from './LogoApp.vue'
+
 const isOpen = ref(false)
 const mode = ref(false)
 const colorMode = useColorMode()
@@ -37,10 +38,10 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
         <UButton size="md" color="neutral" variant="ghost" to="/"
           >Comparateur</UButton
         >
-        <UButton size="md" color="neutral" variant="ghost" to="/"
+        <UButton size="md" color="neutral" variant="ghost" to="/forum"
           >Forum</UButton
         >
-        <UButton size="md" color="neutral" variant="ghost" to="/"
+        <UButton size="md" color="neutral" variant="ghost" to="/ride"
           >Balades</UButton
         >
         <UButton size="md" color="neutral" variant="ghost" to="/knowUs"
@@ -88,7 +89,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
         color="neutral"
         variant="ghost"
         style="justify-content: center"
-        to="/"
+        to="/forum"
         >Forum</UButton
       >
       <UButton
@@ -96,7 +97,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
         color="neutral"
         variant="ghost"
         style="justify-content: center"
-        to="/"
+        to="/ride"
         >Balades</UButton
       >
       <UButton
@@ -119,11 +120,6 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
         color="neutral"
         variant="ghost"
         style="justify-content: center"
-        @click="
-          {
-            ;() => (isModalOpen = true)
-          }
-        "
         >Mon profil</UButton
       >
     </div>
@@ -146,7 +142,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .logo {
