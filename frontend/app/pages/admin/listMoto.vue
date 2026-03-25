@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Header from '~/components/admin/Header.vue'
 import { h, resolveComponent } from 'vue'
-import CardMoto from './CardMoto.vue'
+import CardMoto from '../../components/admin/CardMoto.vue'
 import type { IMotorcycle } from '~/types/motorcycle'
 
 definePageMeta({

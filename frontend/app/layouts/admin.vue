@@ -11,7 +11,7 @@ function getItems() {
     {
       label: 'Motos',
       icon: 'i-lucide-square-dot',
-      to: '/admin/listeMoto'
+      to: '/admin/listMoto'
     },
     {
       label: 'Statistiques',
