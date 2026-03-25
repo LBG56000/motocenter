@@ -3,7 +3,7 @@ import * as v from 'valibot'
 import type { FormSubmitEvent } from '@nuxt/ui'
 import type { IBrand } from '~/types/brand'
 
-const apiBack = useRuntimeConfig().public.apiback
+const apiBase = useRuntimeConfig().public.apiBase
 
 const props = defineProps({
   mode: { type: String, default: 'create' },
@@ -12,10 +12,11 @@ const props = defineProps({
 })
 
 const schema = v.object({
-  brand: v.string('Brand is required'),
-  model: v.pipe(v.string(), v.minLength(1, 'Model is required')),
-  year: v.number('Year is required'),
-  engineSize: v.number('Engine size is required'),
+  brand: v.string('La marque est requise'),
+  name: v.pipe(v.string(), v.minLength(3, 'Le nom est requis')),
+  price: v.number('le prix est requis'),
+  year: v.number('La date est requise'),
+  engineSize: v.number('La taille du moteur est requise'),
   horsepower: v.optional(v.number()),
   maxSpeed: v.optional(v.number()),
   time_0_100: v.optional(v.number()),
@@ -30,7 +31,8 @@ type Schema = v.InferOutput<typeof schema>
 
 const state = reactive<Schema>({
   brand: '',
-  model: '',
+  name: '',
+  price: 0,
   year: 2026,
   engineSize: undefined,
   power: undefined,
@@ -49,7 +51,7 @@ const brandItems = ref<string[]>([])
 
 async function fetchData() {
   const data = await $fetch<{ brands: IBrand[] }>(
-    `${apiBack}brands?project=name`
+    `${apiBase}brands?project=name`
   )
   if (data?.brands) {
     brandList.value = data.brands
@@ -79,7 +81,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     const motorcycleData = {
       id: crypto.randomUUID(),
       brand: selectedBrand._id,
-      model: event.data.model,
+      price: event.data.price,
+      name: event.data.name,
       year: event.data.year,
       engine_size: event.data.engineSize,
       horsePower: event.data.horsepower || event.data.power,
@@ -90,7 +93,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       is_public: event.data.isPublished
     }
 
-    await $fetch(`${apiBack}motorcycles`, {
+    console.log(motorcycleData)
+
+    await $fetch(`${apiBase}motorcycles`, {
       method: 'POST',
       body: motorcycleData
     })
@@ -107,8 +112,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
     Object.assign(state, {
       brand: '',
-      model: '',
-      year: undefined,
+      name: '',
+      price: 0,
+      year: 2026,
       engineSize: undefined,
       horsepower: undefined,
       maxSpeed: undefined,
@@ -134,8 +140,12 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <UInputMenu v-model="state.brand" :items="brandItems" />
     </UFormField>
 
-    <UFormField label="Modèle" name="model" required>
-      <UInput v-model="state.model" />
+    <UFormField label="Modèle" name="name" required>
+      <UInput v-model="state.name" />
+    </UFormField>
+
+    <UFormField label="Prix" name="price" required>
+      <UInputNumber v-model="state.price" />
     </UFormField>
 
     <UFormField label="Année" name="year" required>
@@ -146,7 +156,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <UInputNumber v-model="state.engineSize" />
     </UFormField>
 
-    <UFormField label="Chevaux" name="horsepower">
+    <UFormField label="Chevaux" name="horsepower" required>
       <UInputNumber v-model="state.horsepower" />
     </UFormField>
 

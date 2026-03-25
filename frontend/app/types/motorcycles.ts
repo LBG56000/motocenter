@@ -1,22 +1,24 @@
-import type { IAcceleration } from "./accelerations"
+import type { IBrand } from './brand'
+
+import type { IAcceleration } from './accelerations'
 
 export interface IMotorcycle {
   id: string
   name: string
-  brandId: string
+  brand: IBrand
   createdAt: string
-  year: number
-  price: number
+  engine_size: number
   horsePower: number
   torque: number
   weight: number
-  engine_size: number
   consumption: number
-  acceleration?: IAcceleration
-  speedMax?: number
   soundLink?: string
   imageUrl?: string
-  is_new?: boolean
+  is_public?: boolean
+  acceleration?: IAcceleration
+  speedMax?: number
   numberOfComparison?: number
   withAllFiled?: boolean
+  year: number
+  price: number
 }

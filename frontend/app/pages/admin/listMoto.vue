@@ -9,13 +9,13 @@ definePageMeta({
 })
 
 const UBadge = resolveComponent('UBadge')
-const apiBack = useRuntimeConfig().public.apiback
+const apiBase = useRuntimeConfig().public.apiBase
 const motos = ref<IMotorcycle[]>([])
 const selectedMoto = ref<IMotorcycle | null>(null)
 
 const columns = [
   { accessorKey: 'brand', header: 'Marque' },
-  { accessorKey: 'model', header: 'Modèle' },
+  { accessorKey: 'name', header: 'Modèle' },
   { accessorKey: 'year', header: 'Année' },
   {
     accessorKey: 'published',
@@ -48,11 +48,11 @@ const columns = [
 async function fetchData() {
   try {
     const data = await $fetch<{ motorcycles: IMotorcycle[] }>(
-      `${apiBack}motorcycles`,
+      `${apiBase}motorcycles`,
       {
-        //http://localhost:5000/api/v1/motorcycles?project=model,year,is_new,withAllField
+        //http://localhost:5000/api/v1/motorcycles?project=name,year,is_new,withAllField
         params: {
-          project: 'model,year,is_new,withAllField',
+          project: 'name,year,is_new,withAllField',
           limit: 10000
         }
       }
@@ -62,7 +62,7 @@ async function fetchData() {
       motos.value = data.motorcycles.map((moto) => ({
         id: moto.id,
         brand: moto.brand?.name || '',
-        model: moto.model || '',
+        name: moto.name || '',
         year: moto.year || '',
         is_public: moto.is_public,
         published: moto.withAllFiled

@@ -1,7 +1,6 @@
 import Motorcycle from '../models/Motorcycle'
 import Brand from '../models/Brand'
 import { connectToMongo } from '.'
-import Brand from '../models/Brand'
 
 const seedMotorcycles = async () => {
   console.log('Je passe dans le seed motorcycles')
@@ -22,7 +21,7 @@ const seedMotorcycles = async () => {
   await Motorcycle.insertMany([
     {
       id: 'm-001',
-      brandId: brandByName('Honda'),
+      brand: brandByName('Honda'),
       engine_size: 599,
       name: 'CBR600RR',
       horsePower: 121,
@@ -38,7 +37,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-002',
-      brandId: brandByName('Kawasaki'),
+      brand: brandByName('Kawasaki'),
       engine_size: 636,
       name: 'Ninja ZX-6R',
       horsePower: 130,
@@ -53,7 +52,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-003',
-      brandId: brandByName('Suzuki'),
+      brand: brandByName('Suzuki'),
       engine_size: 599,
       name: 'GSX-R600',
       horsePower: 125,
@@ -68,7 +67,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-004',
-      brandId: brandByName('Yamaha'),
+      brand: brandByName('Yamaha'),
       engine_size: 599,
       name: 'YZF-R6',
       horsePower: 118,
@@ -83,7 +82,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-005',
-      brandId: brandByName('Ducati'),
+      brand: brandByName('Ducati'),
       engine_size: 955,
       name: 'Panigale V2',
       horsePower: 155,
@@ -102,7 +101,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-006',
-      brandId: brandByName('BMW'),
+      brand: brandByName('BMW'),
       engine_size: 999,
       name: 'S1000RR',
       horsePower: 210,
@@ -119,7 +118,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-007',
-      brandId: brandByName('Honda'),
+      brand: brandByName('Honda'),
       engine_size: 998,
       name: 'CBR1000RR-R Fireblade',
       horsePower: 217,
@@ -135,7 +134,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-008',
-      brandId: brandByName('Yamaha'),
+      brand: brandByName('Yamaha'),
       engine_size: 998,
       name: 'YZF-R1',
       horsePower: 200,
@@ -152,7 +151,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-009',
-      brandId: brandByName('Ducati'),
+      brand: brandByName('Ducati'),
       engine_size: 1099,
       name: 'Streetfighter V4',
       horsePower: 208,
@@ -167,7 +166,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-010',
-      brandId: brandByName('Kawasaki'),
+      brand: brandByName('Kawasaki'),
       engine_size: 1043,
       name: 'Z H2',
       horsePower: 200,
@@ -183,7 +182,7 @@ const seedMotorcycles = async () => {
     },
     {
       id: 'm-011',
-      brandId: brandByName('Honda'),
+      brand: brandByName('Honda'),
       engine_size: 599,
       name: 'CBR600RR',
       horsePower: 121,
