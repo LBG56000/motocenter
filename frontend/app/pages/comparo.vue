@@ -101,8 +101,8 @@ async function fetchMotocycles() {
       }
     }
   )
-  motorcycle1.value = data.motorcycles.find((m) => m.id === motorcycle1Id.value)
-  motorcycle2.value = data.motorcycles.find((m) => m.id === motorcycle2Id.value)
+  motorcycle1.value = data.motorcycles.find((m) => m._id === motorcycle1Id.value)
+  motorcycle2.value = data.motorcycles.find((m) => m._id === motorcycle2Id.value)
 
   createResultat()
   showResultat.value = true
@@ -114,12 +114,12 @@ async function fetchCarrouselMotorcycles() {
   const project = 'name,horsePower,torque,price'
   const limit = 10
   // SportsBikes for Carrousel
-  const sportBikesData = await $fetch<{motorcycles: IMotorcycle[]}>(
+  const sportBikesData = await $fetch<{ motorcycles: IMotorcycle[] }>(
     `${apiBase}motorcycles`,
     {
-      params:{
+      params: {
         filter: JSON.stringify({
-          category : 'sportsbike'
+          category: 'sportsbike'
         }),
         project,
         limit
@@ -127,12 +127,12 @@ async function fetchCarrouselMotorcycles() {
     }
   )
   // Beginners Bikes for Carrousel
-  const beginnerBikesData = await $fetch<{motorcycles: IMotorcycle[]}>(
+  const beginnerBikesData = await $fetch<{ motorcycles: IMotorcycle[] }>(
     `${apiBase}motorcycles`,
     {
-      params:{
+      params: {
         filter: JSON.stringify({
-          isAvailableA2 : true
+          isAvailableA2: true
         }),
         project,
         limit
@@ -140,12 +140,12 @@ async function fetchCarrouselMotorcycles() {
     }
   )
   // Adventure Bikes for Carrousel
-  const adventureBikesData = await $fetch<{motorcycles: IMotorcycle[]}>(
+  const adventureBikesData = await $fetch<{ motorcycles: IMotorcycle[] }>(
     `${apiBase}motorcycles`,
     {
-      params:{
+      params: {
         filter: JSON.stringify({
-          category : 'adventure'
+          category: 'adventure'
         }),
         project,
         limit
@@ -169,45 +169,31 @@ onMounted(() => {
         <MotocyclesForm v-model="motorcycle1Id" form-title="Moto 1" />
         <MotocyclesForm v-model="motorcycle2Id" form-title="Moto 2" />
       </div>
-      <UButton
-        icon="i-lucide-arrow-left-right"
-        class="w-fit rounded-4xl"
-        :disabled="!motorcycle1Id || !motorcycle2Id"
-        @click="fetchMotocycles"
-        >Comparo</UButton
-      >
+      <UButton icon="i-lucide-arrow-left-right" class="w-fit rounded-4xl" :disabled="!motorcycle1Id || !motorcycle2Id"
+        @click="fetchMotocycles">Comparo</UButton>
     </div>
     <Transition>
       <div v-if="showResultat" ref="resultat" class="resultat-section">
         <div v-if="resultatNumber.length > 0" class="info-container">
           <h3>Résultats</h3>
           <div v-for="field in resultatNumber" :key="field.fieldName">
-            <ResultatFieldNumber
-              :field-name="field.fieldName"
-              :first-value="field.firstValue"
-              :second-value="field.secondValue"
-              />
+            <ResultatFieldNumber :field-name="field.fieldName" :first-value="field.firstValue"
+              :second-value="field.secondValue" />
             <br />
           </div>
         </div>
         <div v-if="resultatImg.length > 0">
           <h3>Images</h3>
           <div v-for="field in resultatImg" :key="field.fieldName">
-            <ResultatFieldImg
-              :field-name="field.fieldName"
-              :first-value="field.firstValue"
-              :second-value="field.secondValue"
-            />
+            <ResultatFieldImg :field-name="field.fieldName" :first-value="field.firstValue"
+              :second-value="field.secondValue" />
           </div>
         </div>
         <div v-if="resultatSound.length > 0">
           <h3>Sons</h3>
           <div v-for="field in resultatSound" :key="field.fieldName">
-            <ResultatFieldSound
-            :field-name="field.fieldName"
-            :first-value="field.firstValue"
-            :second-value="field.secondValue"
-            />
+            <ResultatFieldSound :field-name="field.fieldName" :first-value="field.firstValue"
+              :second-value="field.secondValue" />
           </div>
         </div>
       </div>

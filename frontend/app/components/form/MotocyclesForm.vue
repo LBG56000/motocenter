@@ -85,7 +85,7 @@ watch(
       const found = motorcyclesList.value.find(
         (m) => m.name === name && m.year === year
       )
-      selectedId.value = found?.id
+      selectedId.value = found?._id
     } else {
       selectedId.value = undefined
     }
@@ -125,12 +125,7 @@ onMounted(() => {
   <div class="form">
     <h3>{{ props.formTitle }}</h3>
     <UFormField label="Marque" name="brand">
-      <UInputMenu
-        v-model="brandInput"
-        :placeholder="placeholderMotorcycle.brand"
-        :items="brandFilteredList"
-        clear
-      >
+      <UInputMenu v-model="brandInput" :placeholder="placeholderMotorcycle.brand" :items="brandFilteredList" clear>
         <template #empty>
           Aucune marque trouvée
         </template>
@@ -138,13 +133,8 @@ onMounted(() => {
     </UFormField>
 
     <UFormField label="Modèle" name="model">
-      <UInputMenu
-        v-model="modelInput"
-        :placeholder="placeholderMotorcycle.name"
-        :items="motorcycleFilteredList"
-        clear
-        @update:open="fetchMotorcyclesByBrand"
-      >
+      <UInputMenu v-model="modelInput" :placeholder="placeholderMotorcycle.name" :items="motorcycleFilteredList" clear
+        @update:open="fetchMotorcyclesByBrand">
         <template #empty>
           Aucun modèle trouvé
         </template>
@@ -152,13 +142,8 @@ onMounted(() => {
     </UFormField>
 
     <UFormField label="Année" name="year">
-      <UInputMenu
-        v-model="motorcycle.year"
-        :placeholder="String(placeholderMotorcycle.year)"
-        :items="yearFilteredList"
-        clear
-        @update:open="fetchMotorcyclesByBrand"
-      >
+      <UInputMenu v-model="motorcycle.year" :placeholder="String(placeholderMotorcycle.year)" :items="yearFilteredList"
+        clear @update:open="fetchMotorcyclesByBrand">
         <template #empty>
           Aucune année trouvée
         </template>
