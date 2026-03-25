@@ -1,6 +1,7 @@
 <script setup>
 import ToggleSwitch from './ToggleSwitch.vue'
 import LogoApp from './LogoApp.vue'
+
 const isOpen = ref(false)
 const mode = ref(false)
 const colorMode = useColorMode()
@@ -36,7 +37,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
         <UButton size="md" color="neutral" variant="ghost" to="/forum"
           >Forum</UButton
         >
-        <UButton size="md" color="neutral" variant="ghost" to="/"
+        <UButton size="md" color="neutral" variant="ghost" to="/ride"
           >Balades</UButton
         >
         <UButton size="md" color="neutral" variant="ghost" to="/knowUs"
