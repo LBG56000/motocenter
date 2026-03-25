@@ -4,8 +4,10 @@ import withNuxt from './.nuxt/eslint.config.mjs'
 
 export default withNuxt(
   {
-    rules: {}
+    rules: {
+      'no-console': ['error', { allow: ['error', 'warn'] }],
+      '@typescript-eslint/no-explicit-any': 'off'
+    }
   },
-  // Your custom configs here
   eslintConfigPrettier
 )
