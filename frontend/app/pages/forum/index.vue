@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ForumMyFavoritesPost from '~/components/forum/ForumMyFavoritesPost.vue';
+import HeaderInfo from '~/components/global/HeaderInfo.vue';
 import type { IPost } from '~/types/post';
 
 const posts = ref<IPost[]>([])
@@ -45,7 +46,20 @@ onMounted(async () => {
 
 <template>
   <div>
-    <div class="forum-filters">
+    <HeaderInfo :scroll-to-element-id="'forum'">
+      <template #title>
+        <h1>
+          Bienvenue sur le <br />
+          <span style="color: red">Forum</span>
+        </h1>
+      </template>
+      <template #subtitle>
+        <p>
+          Échanger librement sur votre sujet favori en lien avec la moto.
+        </p>
+      </template>
+    </HeaderInfo>
+    <div id="forum" class="forum-filters">
       <ForumFilters :loading />
       <div>
         <USkeleton v-if="loading" class="size-12 rounded-full" />
