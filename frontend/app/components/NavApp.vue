@@ -1,10 +1,13 @@
 <script setup>
+import ConnexionForm from './ConnexionForm.vue'
 import ToggleSwitch from './ToggleSwitch.vue'
 import LogoApp from './LogoApp.vue'
 
 const isOpen = ref(false)
 const mode = ref(false)
 const colorMode = useColorMode()
+
+const isModalOpen = ref(false)
 
 function toggle_open() {
   isOpen.value = !isOpen.value
@@ -25,6 +28,7 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
 
 <template>
   <div id="navbar-pc">
+    <ConnexionForm v-model="isModalOpen" />
     <div class="navbar">
       <div class="list-left">
         <LogoApp />
@@ -46,15 +50,59 @@ colorMode.preference = computed(() => (mode.value ? 'dark' : 'light'))
         <LogoApp />
         <ToggleSwitch v-model="mode" />
       </div>
-      <UIcon :name="isOpen ? 'i-lucide-chevron-down' : 'i-lucide-menu'" class="size-10" @click="toggle_open" />
+      <UIcon
+        :name="isOpen ? 'i-lucide-chevron-down' : 'i-lucide-menu'"
+        class="size-10"
+        @click="toggle_open"
+      />
     </div>
     <div v-if="isOpen" class="list-mobile">
-      <UButton size="md" color="neutral" variant="ghost" style="justify-content: center" to="/">Comparateur</UButton>
-      <UButton size="md" color="neutral" variant="ghost" style="justify-content: center" to="/forum">Forum</UButton>
-      <UButton size="md" color="neutral" variant="ghost" style="justify-content: center" to="/ride">Balades</UButton>
-      <UButton size="md" color="neutral" variant="ghost" style="justify-content: center" to="/">Nous connaitre</UButton>
-      <UButton size="md" color="neutral" variant="ghost" style="justify-content: center">Connexion</UButton>
-      <UButton size="md" color="neutral" variant="ghost" style="justify-content: center">Mon profil</UButton>
+      <UButton
+        size="md"
+        color="neutral"
+        variant="ghost"
+        style="justify-content: center"
+        to="/"
+        >Comparateur</UButton
+      >
+      <UButton
+        size="md"
+        color="neutral"
+        variant="ghost"
+        style="justify-content: center"
+        to="/forum"
+        >Forum</UButton
+      >
+      <UButton
+        size="md"
+        color="neutral"
+        variant="ghost"
+        style="justify-content: center"
+        to="/ride"
+        >Balades</UButton
+      >
+      <UButton
+        size="md"
+        color="neutral"
+        variant="ghost"
+        style="justify-content: center"
+        to="/"
+        >Nous connaitre</UButton
+      >
+      <UButton
+        size="md"
+        color="neutral"
+        variant="ghost"
+        style="justify-content: center"
+        >Connexion</UButton
+      >
+      <UButton
+        size="md"
+        color="neutral"
+        variant="ghost"
+        style="justify-content: center"
+        >Mon profil</UButton
+      >
     </div>
   </div>
 </template>
