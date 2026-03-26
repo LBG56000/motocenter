@@ -90,7 +90,6 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     const selectedBrand = brandList.value.find(
       (b) => b.name === event.data.brand
     )
-    console.log(selectedBrand)
     if (!selectedBrand?._id) {
       toast.add({
         title: 'Error',
@@ -106,7 +105,6 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       ...rest,
       createdAt: new Date().toISOString()
     }
-    console.log(motorcycleData)
 
     await $fetch(`${apiBase}motorcycles`, {
       method: 'POST',

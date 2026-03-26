@@ -104,6 +104,9 @@ function onRowClick(row: any) {
     <hr />
 
     <main>
+      <UDashboardSidebar side="right" resizable collapsible>
+        <h1>AAAAAAAA</h1>
+      </UDashboardSidebar>
       <div class="header-page">
         <UInput
           icon="i-lucide-search"
