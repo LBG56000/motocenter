@@ -1,0 +1,23 @@
+import jwt from 'jsonwebtoken'
+import { Request, Response, Router } from 'express'
+import User from '../models/User'
+
+const router = Router()
+
+router.post('/', async (req: Request<unknown, unknown>, res: Response) => {
+  const { email, password } = req.body
+
+  const user = await User.findOne({ email, password })
+  if (!user)
+    return res.status(401).json({ message: 'Email ou mot de passe incorrect' })
+
+  const token = jwt.sign(
+    { id: user._id, email: user.email },
+    process.env.JWT_SECRET!,
+    { expiresIn: '24h' },
+  )
+
+  res.json({ token })
+})
+
+export default router

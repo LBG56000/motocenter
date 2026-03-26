@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import type { FormError, FormErrorEvent, FormSubmitEvent } from '@nuxt/ui'
+import type { FormError, FormSubmitEvent } from '@nuxt/ui'
 import type { IUser } from '~/types/users'
 
 const isOpen = defineModel({ isModalOpen: Boolean })
 const form = useTemplateRef('form')
-
-const schema = {
-  email: 'Invalid email',
-  password: () => 'Must be at least 8 characters'
-}
 
 type Schema = typeof state
 

@@ -1,14 +1,16 @@
 import User from '../models/User'
+import { authenticateToken } from '../utils/auth'
 import { type Request, Response, Router } from 'express'
 import { prepareQuery, type ReqQuery } from '../utils/find'
 
 const router = Router()
 router.get(
   '/',
+  authenticateToken,
   async (req: Request<unknown, unknown, unknown, ReqQuery>, res: Response) => {
     const { project, sort, limit, filter } = prepareQuery(req.query)
     try {
-      const users = await User.find(filter)
+      const users = await User.findOne(filter)
         .select(project)
         .sort(sort)
         .limit(limit)
