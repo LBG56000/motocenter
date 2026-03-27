@@ -11,7 +11,19 @@ const handleEditAPost = () => {
   console.log('Edit post')
 }
 
-const handleOpenAPost = (id: string) => {
+const apiBase = useRuntimeConfig().public.apiBase
+
+const addViewInAPost = async (id: string) => {
+  await $fetch(`${apiBase}posts/add-view`, {
+    method: 'POST',
+    params: {
+      filter: JSON.stringify({ id: id }),
+    }
+  })
+}
+
+const handleOpenAPost = async (id: string) => {
+  await addViewInAPost(id)
   navigateTo(`/forum/${id}`)
 }
 </script>
