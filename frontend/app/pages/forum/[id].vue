@@ -72,7 +72,7 @@ onMounted(async () => {
               <p>{{ responses.length || 0 }} réponses </p>
             </div>
             <p>Par {{ post?.user.firstname }}, {{ formatTimeAgo(post?.createdAt)
-              }}</p>
+            }}</p>
             <div class="icon-and-text right">
               <UIcon class="size-7 margin-2" name="i-lucide-eye" />
               <p>{{ post?.views }} vues</p>
@@ -82,7 +82,7 @@ onMounted(async () => {
             <UIcon name="i-lucide-star" class="size-7" />
             <p>Mettre ce post en favori</p>
           </div>
-          <img :src="`/_nuxt/assets/images/posts/${post?.image}`"
+          <img :src="`/images/posts/${post?.image}`"
             :alt="`Image du post ${post?.question} par ${post?.user.firstname}`"
             :title="`Image du post ${post?.question} par ${post?.user.firstname}`"
             class="img margin-1_5 margin-bottom-1">
