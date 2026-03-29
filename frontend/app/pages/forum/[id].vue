@@ -58,7 +58,7 @@ onMounted(async () => {
       </div>
       <div>
         <div class="icon-and-text">
-          <UAvatar :src="`/_nuxt/assets/images/users/${post?.user.image}`" size="3xl" loading="lazy" class="margin-2" />
+          <UAvatar :src="`/images/users/${post?.user.image}`" size="3xl" loading="lazy" class="margin-2" />
           <h2>{{ post?.question }}</h2>
         </div>
         <div>
@@ -82,7 +82,7 @@ onMounted(async () => {
             <UIcon name="i-lucide-star" class="size-7" />
             <p>Mettre ce post en favori</p>
           </div>
-          <img :src="`/_nuxt/assets/images/posts/${post?.image}`"
+          <img :src="`/images/posts/${post?.image}`"
             :alt="`Image du post ${post?.question} par ${post?.user.firstname}`"
             :title="`Image du post ${post?.question} par ${post?.user.firstname}`"
             class="img margin-1_5 margin-bottom-1">
